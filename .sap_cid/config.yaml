@@ -1,10 +1,14 @@
 stages:
   build:
-    buildTool: "mta"
+    buildTool: "mta" # "mta", "npm", or "maven"
+    buildToolVersion: "MBTJ21N22" # depends on buildTool value; see the following table
     buildDescriptor: "mta.yaml"
-    buildToolVersion: "MBTJ21N22"
-  malwareScan:
+    npmLint: # only valid if you use the "mta" or "npm" build tool
+      failOnError: true
+
+  malwareScan: # only valid if you use the "mta" build tool
     scan: true
+
   release:
     cfDeploy:
       strategy: "default"
