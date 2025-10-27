@@ -23,13 +23,13 @@ jobs:
       - run: npm install
       
       - name: Test
-        run: node --test --test-reporter spec > ${{ github.workspace }}/results/test-results.xml tests/*test.js
+        run: node --test --test-reporter spec > results/test-results.xml tests/*test.js
 
       - name: Create test summary
         uses: test-summary/action@v2.4
         with:
-          paths: ${{ github.workspace }}/results/*.xml
-          output: ${{ github.workspace }}/results/summary.md
+          paths: results/*.xml
+          output: results/summary.md
           show: "all"
         if: always()
 
@@ -38,7 +38,7 @@ jobs:
         run: |
           echo "TEST RESULTS:" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
-          cat "${{ github.workspace }}/results/summary.md" >> $GITHUB_STEP_SUMMARY
+          cat "results/summary.md" >> $GITHUB_STEP_SUMMARY
         if: always()
             
         
