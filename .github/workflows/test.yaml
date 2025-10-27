@@ -23,6 +23,23 @@ jobs:
       - run: npm install
       
       - name: Test
-        run: node --test tests/*test.js
+        run: node --test --test-reporter tap > test/test-results.tap test/*.test.js
+
+      # intentionally doing that to show job summaries
+      - name: Create test summary
+        uses: test-summary/action@v2.4
+        with:
+          paths: test/*.tap
+          output: test/summary.md
+          show: "all"
+        if: always()
+
+      # I am adding the test results to the Job Summary
+      - name: Add Test Results To Job Summary
+        run: |
+          echo "TEST RESULTS:" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY # this is a blank line
+          cat "test/summary.md" >> $GITHUB_STEP_SUMMARY
+        if: always()  
 
       
