@@ -8,7 +8,6 @@ modules:
     path: gen/srv
     requires:
       - name: bookshop-auth
-      - name: bookshop-db
     provides:
       - name: srv-api
         properties:
@@ -18,13 +17,6 @@ modules:
       instances: 1
     build-parameters:
       builder: npm-ci
-  - name: bookshop-db-deployer
-    type: hdb
-    path: gen/db
-    requires:
-      - name: bookshop-db
-    parameters:
-      buildpack: nodejs_buildpack
 resources:
   - name: bookshop-auth
     type: org.cloudfoundry.managed-service
@@ -35,11 +27,6 @@ resources:
       path: ./xs-security.json
       service: xsuaa
       service-plan: application
-  - name: bookshop-db
-    type: com.sap.xs.hdi-container
-    parameters:
-      service: hana
-      service-plan: hdi-shared
   - name: bookshop-destination-service
     type: org.cloudfoundry.managed-service
     parameters:
