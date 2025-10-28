@@ -1,0 +1,17 @@
+---
+stages:
+  build:
+    buildTool: "mta"
+    buildDescriptor: "mta.yaml"
+    buildToolVersion: "MBTJ21N22"
+    npmLint:
+      failOnError: true
+  malwareScan:
+    scan: true
+  release:
+    cfDeploy:
+      strategy: "default"
+      apiEndpoint: "https://api.cf.us10-001.hana.ondemand.com"
+      org: "Deluxe Media Inc. a Delaware corporation_dev-dhipne5t"
+      space: "Dev"
+      credential: "cf"      
